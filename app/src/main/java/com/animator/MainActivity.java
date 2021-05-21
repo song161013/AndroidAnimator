@@ -179,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
                 return;
         }
 
+        
         tvStart.startAnimation(animation);
 
     }
