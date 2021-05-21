@@ -12,14 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 
-public class BtnAdapter extends RecyclerView.Adapter<BtnAdapter.ViewHolde> {
+public class AnimatorAdapter extends RecyclerView.Adapter<AnimatorAdapter.ViewHolde> {
 
     private Context mContext;
     private List<String> mDatas;
 
     private int mViewHolderPosition;
 
-    public BtnAdapter(Context context, List<String> list) {
+    public AnimatorAdapter(Context context, List<String> list) {
         this.mContext = context;
         this.mDatas = list;
     }
