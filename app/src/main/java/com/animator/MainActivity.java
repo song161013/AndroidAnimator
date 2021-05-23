@@ -17,6 +17,7 @@ import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -128,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startJavaAnimator(int pos) {
-        Animation animation = null;
+        Animation animation;
         switch (pos) {
             case 0:
                 animation = new ScaleAnimation(0.0f, 1.5f, 0.0f, 1.5f, Animation.RELATIVE_TO_SELF,
@@ -163,23 +164,44 @@ public class MainActivity extends AppCompatActivity {
 //                TranslateAnimation translate = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0f,
 //                        Animation.RELATIVE_TO_SELF, 1.5f, Animation.RELATIVE_TO_SELF, 0f,
 //                        Animation.RELATIVE_TO_SELF, 0f);
-                RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF,
+                RotateAnimation rotate = new RotateAnimation(0, 270, Animation.RELATIVE_TO_SELF,
                         0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 
                 AnimationSet set = new AnimationSet(true);
                 set.setDuration(3000);
-                set.setInterpolator(new BounceInterpolator());
+                set.setInterpolator(new AccelerateInterpolator());
                 set.addAnimation(scale);
                 set.addAnimation(alpha);
-//                set.addAnimation(translate);
                 set.addAnimation(rotate);
+                set.setRepeatCount(Animation.INFINITE);
+                set.setRepeatMode(Animation.REVERSE);
+                set.setFillAfter(true);
+                set.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                        Toast.makeText(MainActivity.this, "animation start", Toast.LENGTH_SHORT).show();
+                        Log.e("AABB", "animation start");
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        Toast.makeText(MainActivity.this, "animation end", Toast.LENGTH_SHORT).show();
+                        Log.e("AABB", "animation end");
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+                        Toast.makeText(MainActivity.this, "animation repeat", Toast.LENGTH_SHORT).show();
+                        Log.e("AABB", "animation repeat");
+                    }
+                });
                 tvStart.startAnimation(set);
                 return;
             default:
                 return;
         }
 
-        
+
         tvStart.startAnimation(animation);
 
     }
